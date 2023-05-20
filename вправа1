@@ -1,0 +1,81 @@
+#include <iostream>
+#include <cmath>
+#include <vector>
+
+struct Point3D {
+    double x, y, z;
+};
+
+double calculateDistance(const Point3D& p1, const Point3D& p2) {
+    double dx = p2.x - p1.x;
+    double dy = p2.y - p1.y;
+    double dz = p2.z - p1.z;
+    return std::sqrt(dx * dx + dy * dy + dz * dz);
+}
+
+double findMinimumDistance(const std::vector<Point3D>& points) {
+    double minDistance = std::numeric_limits<double>::max();
+    int numPoints = points.size();
+
+    for (int i = 0; i < numPoints - 1; i++) {
+        for (int j = i + 1; j < numPoints; j++) {
+            double distance = calculateDistance(points[i], points[j]);
+            if (distance < minDistance) {
+                minDistance = distance;
+            }
+        }
+    }
+
+    return minDistance;
+}
+
+double findMaximumDistance(const std::vector<Point3D>& points) {
+    double maxDistance = 0.0;
+    int numPoints = points.size();
+
+    for (int i = 0; i < numPoints - 1; i++) {
+        for (int j = i + 1; j < numPoints; j++) {
+            double distance = calculateDistance(points[i], points[j]);
+            if (distance > maxDistance) {
+                maxDistance = distance;
+            }
+        }
+    }
+
+    return maxDistance;
+}
+
+double findAverageDistance(const std::vector<Point3D>& points) {
+    double totalDistance = 0.0;
+    int numPairs = 0;
+    int numPoints = points.size();
+
+    for (int i = 0; i < numPoints - 1; i++) {
+        for (int j = i + 1; j < numPoints; j++) {
+            double distance = calculateDistance(points[i], points[j]);
+            totalDistance += distance;
+            numPairs++;
+        }
+    }
+
+    return totalDistance / numPairs;
+}
+
+int main() {
+    std::vector<Point3D> points = {
+        {1.0, 2.0, 3.0},
+        {4.0, 5.0, 6.0},
+        {7.0, 8.0, 9.0}
+        // Додайте інші точки за необхідністю
+    };
+
+    double minDistance = findMinimumDistance(points);
+    double maxDistance = findMaximumDistance(points);
+    double averageDistance = findAverageDistance(points);
+
+    std::cout << "Мінімальна відстань: " << minDistance << std::endl;
+    std::cout << "Максимальна відстань: " << maxDistance << std::endl;
+    std::cout << "Середня відстань: " << averageDistance << std::endl;
+
+    return 0;
+}
