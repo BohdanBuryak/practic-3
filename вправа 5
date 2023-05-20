@@ -1,0 +1,31 @@
+#include <iostream>
+
+// Функція для знаходження найбільшого загального дільника (НЗД)
+int findGCD(int a, int b) {
+    if (b == 0) {
+        return a;
+    }
+    return findGCD(b, a % b);
+}
+
+// Функція для знаходження найменшого загального кратного (НЗК)
+int findLCM(int a, int b) {
+    int gcd = findGCD(a, b);
+    return (a * b) / gcd;
+}
+
+int main() {
+    int num1, num2;
+
+    std::cout << "Введіть перше число: ";
+    std::cin >> num1;
+
+    std::cout << "Введіть друге число: ";
+    std::cin >> num2;
+
+    int lcm = findLCM(num1, num2);
+
+    std::cout << "Найменше загальне кратне: " << lcm << std::endl;
+
+    return 0;
+}
